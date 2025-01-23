@@ -1,8 +1,8 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*                       File Name: /CPP-02/ex00/Fixed.cpp                        *
+*                       File Name: /CPP-02/ex01/Fixed.cpp                        *
 *                    Creation Date: January 21, 2025 01:30 PM                    *
-*                    Last Updated: January 21, 2025 03:44 PM                     *
+*                    Last Updated: January 21, 2025 10:13 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -26,8 +26,9 @@ Fixed::Fixed(void) : _fixedPointValue(0) {
  * 
  * @param original Constructs the object by copying this.
  */
-Fixed::Fixed(const Fixed &original)	: _fixedPointValue(original._fixedPointValue) {
+Fixed::Fixed(const Fixed &original) {
 	std::cout << BRIGHT_GREEN << this << RESET << ": Copy constructor called." << std::endl;
+	*this = original;
 }
 
 /**
@@ -59,7 +60,7 @@ Fixed &Fixed::operator=(const Fixed &original) {
  * @param raw The new value.
  */
 void	Fixed::setRawBits(int const raw) {
-	std::cout << BRIGHT_MAGENTA << this << RESET << ": " << BRIGHT_CYAN << "setRawBits()" << RESET << " member function called." << std::endl;
+	std::cout << BRIGHT_MAGENTA << this << RESET << ": " << BOLD << "setRawBits()" << RESET << " member function called." << std::endl;
 	_fixedPointValue = raw;
 }
 
@@ -69,6 +70,43 @@ void	Fixed::setRawBits(int const raw) {
  * @return int The point value.
  */
 int		Fixed::getRawBits(void) const {
-	std::cout << BRIGHT_MAGENTA << this << RESET << ": " << BRIGHT_CYAN << "getRawBits()" << RESET << " member function called." << std::endl;
+	std::cout << BRIGHT_MAGENTA << this << RESET << ": " << BOLD << "getRawBits()" << RESET << " member function called." << std::endl;
 	return _fixedPointValue;
+}
+
+/********************************************************************************/
+/*************************** New exercise functions! ****************************/
+/********************************************************************************/
+
+/**
+ * @brief Construct a new Fixed object using an integer!
+ * 
+ * @param integer the integer to configure.
+ */
+Fixed::Fixed(const int integer) : _fixedPointValue(integer << _fractionalBits) {
+	std::cout << BRIGHT_CYAN << this << RESET << ": Int constructor called." << std::endl;
+}
+
+/**
+ * @brief Construct a new Fixed object using a float!
+ * 
+ * @param floating the float to configure.
+ */
+Fixed::Fixed(const float floating) : _fixedPointValue(static_cast<int>(roundf(floating * (1 << _fractionalBits)))) {
+	std::cout << BRIGHT_CYAN << this << RESET << ": Float constructor called." << std::endl;
+}
+
+float	Fixed::toFloat(void) const	{ return static_cast<float>(_fixedPointValue) / (1 << _fractionalBits); };
+int		Fixed::toInt(void) const	{ return _fixedPointValue >> _fractionalBits; };
+
+/**
+ * @brief The custom display operator for the class.
+ * 
+ * @param out display output.
+ * @param fixed the class itself.
+ * @return std::ostream& the output still in itself.
+ */
+std::ostream	&operator<<(std::ostream &out, const Fixed &fixed) {
+	out << fixed.toFloat();
+	return out;
 }
