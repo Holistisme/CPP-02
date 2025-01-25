@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-02/ex02/Fixed.cpp                        *
 *                    Creation Date: January 21, 2025 01:30 PM                    *
-*                    Last Updated: January 24, 2025 05:56 PM                     *
+*                    Last Updated: January 24, 2025 02:36 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -17,31 +17,20 @@ static inline bool	checkResult(const float &result);
 
 /********************************************************************************/
 
-/**
- * @brief Construct a new Fixed object.
- * 
- */
-Fixed::Fixed(void) : _fixedPointValue(0) {
-	std::cout << BRIGHT_BLUE << this << RESET << ": Default constructor called." << std::endl;
-}
+Fixed::Fixed(void)					: _fixedPointValue(0) {}
+Fixed::Fixed(const int integer)		: _fixedPointValue(integer << _fractionalBits) {}
+Fixed::Fixed(const float floating)	: _fixedPointValue(static_cast<int>(roundf(floating * (1 << _fractionalBits)))) {}
 
-/**
- * @brief Construct a new Fixed object.
- * 
- * @param original Constructs the object by copying this.
- */
-Fixed::Fixed(const Fixed &original) {
-	std::cout << BRIGHT_GREEN << this << RESET << ": Copy constructor called." << std::endl;
-	*this = original;
-}
+Fixed::Fixed(const Fixed &original)	{*this = original;}
 
-/**
- * @brief Destroy the Fixed object.
- * 
- */
-Fixed::~Fixed() {
-	std::cout << BRIGHT_RED << this << RESET << ": Destructor called." << std::endl;
-}
+Fixed::~Fixed() {}
+
+void	Fixed::setRawBits(int const raw) {_fixedPointValue = raw;}
+int		Fixed::getRawBits(void) const	 { return _fixedPointValue; }
+
+
+float	Fixed::toFloat(void) const { return static_cast<float>(_fixedPointValue) / (1 << _fractionalBits); };
+int		Fixed::toInt(void)   const { return _fixedPointValue >> _fractionalBits; };
 
 /**
  * @brief Allows to assign a fixed in relation to another.
@@ -50,54 +39,11 @@ Fixed::~Fixed() {
  * @return Fixed& The object with the new same properties.
  */
 Fixed &Fixed::operator=(const Fixed &original) {
-	std::cout << BRIGHT_YELLOW << this << RESET << ": Copy assignment operator called." << std::endl;
-
 	if (this != &original)
 		_fixedPointValue = original._fixedPointValue;
 
 	return *this;
 }
-
-/**
- * @brief Sets the point value of the Fixed object.
- * 
- * @param raw The new value.
- */
-void	Fixed::setRawBits(int const raw) {
-	std::cout << BRIGHT_MAGENTA << this << RESET << ": " << BOLD << "setRawBits()" << RESET << " member function called." << std::endl;
-	_fixedPointValue = raw;
-}
-
-/**
- * @brief Gets the point value of the Fixed object.
- * 
- * @return int The point value.
- */
-int		Fixed::getRawBits(void) const {
-	std::cout << BRIGHT_MAGENTA << this << RESET << ": " << BOLD << "getRawBits()" << RESET << " member function called." << std::endl;
-	return _fixedPointValue;
-}
-
-/**
- * @brief Construct a new Fixed object using an integer!
- * 
- * @param integer the integer to configure.
- */
-Fixed::Fixed(const int integer) : _fixedPointValue(integer << _fractionalBits) {
-	std::cout << BRIGHT_CYAN << this << RESET << ": Int constructor called." << std::endl;
-}
-
-/**
- * @brief Construct a new Fixed object using a float!
- * 
- * @param floating the float to configure.
- */
-Fixed::Fixed(const float floating) : _fixedPointValue(static_cast<int>(roundf(floating * (1 << _fractionalBits)))) {
-	std::cout << BRIGHT_CYAN << this << RESET << ": Float constructor called." << std::endl;
-}
-
-float	Fixed::toFloat(void) const	{ return static_cast<float>(_fixedPointValue) / (1 << _fractionalBits); };
-int		Fixed::toInt(void) const	{ return _fixedPointValue >> _fractionalBits; };
 
 /**
  * @brief The custom display operator for the class.
@@ -110,10 +56,6 @@ std::ostream	&operator<<(std::ostream &out, const Fixed &fixed) {
 	out << fixed.toFloat();
 	return out;
 }
-
-/********************************************************************************/
-/*************************** New exercise functions! ****************************/
-/********************************************************************************/
 
 /********************************************************************************/
 /********************** Compare the values ​​of two numbers ***********************/

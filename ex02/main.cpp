@@ -42,10 +42,10 @@ static inline void	displayFixed(void) {
 
 	for (index i = 0 ; i < 4 ; i++)
 		std::cout << BG_YELLOW << "Value of " << i + 1 << ':'  << RESET << ' '  << fixedList[i]   << std::endl;
-	std::cout << BG_YELLOW     << "Value when preincrement:"   << RESET << ' '  << ++(*fixedList) << std::endl;
+	std::cout << BG_YELLOW     << "Value when preincrement:"   << RESET << '\n'  << ++(*fixedList) << std::endl;
 	std::cout << BG_YELLOW     << "Value when postincrement:"  << RESET << '\n' << (*fixedList)++ << std::endl;
-	std::cout << BG_YELLOW     << "Value after postincrement:" << RESET << ' '  << *fixedList     << std::endl;
-	std::cout << BG_YELLOW     << "Value when predecrement:"   << RESET << ' '  << --(*fixedList) << std::endl;
+	std::cout << BG_YELLOW     << "Value after postincrement:" << RESET << '\n' << *fixedList     << std::endl;
+	std::cout << BG_YELLOW     << "Value when predecrement:"   << RESET << '\n'  << --(*fixedList) << std::endl;
 	std::cout << BG_YELLOW     << "Value when postdecrement:"  << RESET << '\n' << (*fixedList)-- << std::endl;
 	std::cout << BG_YELLOW     << "Value after postdecrement:" << RESET << ' '  << *fixedList     << std::endl;
 }
