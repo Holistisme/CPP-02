@@ -1,8 +1,8 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*                       File Name: /CPP-02/ex02/Fixed.hpp                        *
+*                       File Name: /CPP-02/ex03/Fixed.hpp                        *
 *                    Creation Date: January 21, 2025 01:16 PM                    *
-*                    Last Updated: January 24, 2025 02:36 PM                     *
+*                    Last Updated: January 29, 2025 11:14 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -17,14 +17,11 @@
 
 /********************************************************************************/
 
-#include	<cstdlib>
 #include	<cmath>
+#include	<cstdlib>
+#include	<iomanip>
 #include	<iostream>
 #include	<limits>
-
-#include	<termios.h>
-#include	<unistd.h>
-#include	<iomanip>
 
 /********************************************************************************/
 
@@ -37,7 +34,6 @@ typedef int	index;
 
 int		main(void);
 float	askFloat(void);
-bool	exitLoop(bool set);
 
 /********************************************************************************/
 

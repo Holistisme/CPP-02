@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-02/ex01/Fixed.hpp                        *
 *                    Creation Date: January 21, 2025 01:16 PM                    *
-*                    Last Updated: January 21, 2025 10:14 AM                     *
+*                    Last Updated: January 29, 2025 11:14 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -27,7 +27,7 @@ typedef int	index;
 
 /********************************************************************************/
 
-int			main(void);
+int	main(void);
 
 /********************************************************************************/
 
@@ -47,6 +47,6 @@ class	Fixed {
 		int		getRawBits(void) const;
 		float	toFloat(void) const;
 		int		toInt(void) const;
-
-		friend	std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 };
+		
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed);

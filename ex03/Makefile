@@ -2,14 +2,14 @@
 #                              Author: Alexy Heitz                               #
 #                        File Name: /CPP-02/ex03/Makefile                        #
 #                    Creation Date: January 24, 2025 14:39 PM                    #
-#                    Last Updated: January 25, 2025 11:36 AM                     #
+#                    Last Updated: January 29, 2025 11:14 AM                     #
 #                           Source Language: makefile                            #
 #                                                                                #
 #                            --- Code Description ---                            #
 #               Instructions for compiling, cleaning, and more!                  #
 ##################################################################################
 
-NAME		= "BSP"
+NAME		= BSP
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98

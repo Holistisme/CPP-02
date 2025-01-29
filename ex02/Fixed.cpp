@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-02/ex02/Fixed.cpp                        *
 *                    Creation Date: January 21, 2025 01:30 PM                    *
-*                    Last Updated: January 24, 2025 05:56 PM                     *
+*                    Last Updated: January 29, 2025 11:14 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -10,10 +10,6 @@
 *********************************************************************************/
 
 #include "./Fixed.hpp"
-
-/********************************************************************************/
-
-static inline bool	checkResult(const float &result);
 
 /********************************************************************************/
 
@@ -130,55 +126,62 @@ bool Fixed::operator!=(const Fixed &another) const	{ return getRawBits() != anot
 /******** Performs a calculation on two numbers and ensures no overflow *********/
 /********************************************************************************/
 
-Fixed Fixed::operator+(const Fixed &target)	const {
-	float	result = toFloat() + target.toFloat();
+Fixed Fixed::operator+(const Fixed &target) const {
+	Fixed	result;
 
-	return (checkResult(result) ? Fixed(result) : Fixed(toFloat()));
+	result.setRawBits(_fixedPointValue + target._fixedPointValue);
+	return result;
 }
 
-Fixed Fixed::operator-(const Fixed &target)	const {
-	float	result = toFloat() - target.toFloat();
+Fixed Fixed::operator-(const Fixed &target) const {
+	Fixed	result;
 
-	return (checkResult(result) ? Fixed(result) : Fixed(toFloat()));
+	result.setRawBits(_fixedPointValue - target._fixedPointValue);
+	return result;
 }
 
-Fixed Fixed::operator*(const Fixed &target)	const {
-	float	result = toFloat() * target.toFloat();
+Fixed Fixed::operator*(const Fixed &target) const {
+	Fixed		result;
+	long long	rawMultiplication = static_cast<long long>(_fixedPointValue) * target._fixedPointValue;
 
-	return (checkResult(result) ? Fixed(result) : Fixed(toFloat()));
+	result.setRawBits(static_cast<int>(rawMultiplication >> _fractionalBits));
+	return result;
 }
 
-Fixed Fixed::operator/(const Fixed &target)	const {
-	float	result = toFloat() / target.toFloat();
+Fixed Fixed::operator/(const Fixed &other) const {
+	if (other._fixedPointValue == 0) {
+		std::cerr << ERROR << "division by zero!" << RESET << std::endl;
+		return *this;
+	}
 
-	return (checkResult(result) ? Fixed(result) : Fixed(toFloat()));
+	Fixed		result;
+	long long	rawDivision = (static_cast<long long>(_fixedPointValue) << _fractionalBits) / other._fixedPointValue;
+
+	result.setRawBits(static_cast<int>(rawDivision));
+	return result;
 }
 
 Fixed &Fixed::operator++() {
-	if (checkResult(getRawBits() + 1))
-		++_fixedPointValue;
+	++_fixedPointValue;
 	return *this;
 }
 
 Fixed Fixed::operator++(int) {
 	Fixed	tmp = *this;
 
-	if (checkResult(getRawBits() + 1))
-		++_fixedPointValue;
+	++_fixedPointValue;
 	return tmp;
 }
 
 Fixed &Fixed::operator--() {
-	if (checkResult(getRawBits() - 1))
-		--_fixedPointValue;
+	--_fixedPointValue;
 	return *this;
 }
 
 Fixed Fixed::operator--(int) {
 	Fixed	tmp = *this;
 
-	if (checkResult(getRawBits() - 1))
-		--_fixedPointValue;
+	--_fixedPointValue;
 	return tmp;
 }
 
@@ -190,26 +193,3 @@ Fixed		&Fixed::min(Fixed &a, Fixed &b)				{ return (a.getRawBits() < b.getRawBit
 Fixed		&Fixed::max(Fixed &a, Fixed &b)				{ return (a.getRawBits() > b.getRawBits()) ? a : b; }
 Fixed const &Fixed::min(const Fixed &a, const Fixed &b)	{ return (a.getRawBits() < b.getRawBits()) ? a : b; }
 Fixed const &Fixed::max(const Fixed &a, const Fixed &b) { return (a.getRawBits() > b.getRawBits()) ? a : b; }
-
-/**
- * @brief Checks the result of a calculation and refuses it if it encounters a problem.
- * 
- * @param result The result of a float calculation.
- * @return true If no error is encountered.
- * @return false If any problem is detected.
- */
-static inline bool	checkResult(const float &result) {
-	if (result != result) {
-		std::cout << ERROR << "The result of an operation is not a number!" << RESET << std::endl;
-		return false;
-	}
-	else if (result == std::numeric_limits<float>::infinity() or result == -std::numeric_limits<float>::infinity()) {
-		std::cout << ERROR << "The result of an operation has gone towards infinity!" << RESET << std::endl;
-		return false;
-	}
-	else if (result && (result > -1e-37f && result < 1e-37f)) {
-		std::cout << ERROR << "The result of an operation is too close to zero!" << RESET << std::endl;
-		return false;
-	}
-	return true;
-}

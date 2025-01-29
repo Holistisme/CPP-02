@@ -1,6 +1,6 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*                       File Name: /CPP-02/ex02/output.hpp                       *
+*                       File Name: /CPP-02/ex03/output.hpp                       *
 *                    Creation Date: January 21, 2025 01:23 PM                    *
 *                    Last Updated: January 21, 2025 01:24 PM                     *
 *                              Source Language: cpp                              *

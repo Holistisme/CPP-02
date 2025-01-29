@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-02/ex00/Fixed.hpp                        *
 *                    Creation Date: January 21, 2025 01:16 PM                    *
-*                    Last Updated: January 21, 2025 03:38 PM                     *
+*                    Last Updated: January 29, 2025 11:14 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -26,7 +26,7 @@ typedef int	index;
 
 /********************************************************************************/
 
-int			main(void);
+int	main(void);
 
 /********************************************************************************/
 

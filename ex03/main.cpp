@@ -1,8 +1,8 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*                        File Name: /CPP-02/ex02/main.cpp                        *
+*                        File Name: /CPP-02/ex03/main.cpp                        *
 *                    Creation Date: January 21, 2025 01:30 PM                    *
-*                    Last Updated: January 25, 2025 11:15 AM                     *
+*                    Last Updated: January 29, 2025 11:14 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -16,7 +16,6 @@
 static void			setTriangleAndCheckPoint(void);
 static inline void	aBeautifulDay(const Point &a, const Point &b, const Point &c, const Point &p);
 static inline Point	newPoint(char position);
-static inline void	erasePreviousLines(const size_t &count);
 
 /********************************************************************************/
 
@@ -30,7 +29,6 @@ int main(void) {
 		std::cout << std::fixed << std::setprecision(2);
 		std::cout << "\n◬ Welcome to an " << BG_YELLOW << "ESSENTIAL" << RESET << " program to calculate if a point is in a triangle! ◬\n" << std::endl;
 		setTriangleAndCheckPoint();
-		erasePreviousLines(2);
 		std::cout << "◬ How dare you stop this " << BG_YELLOW << "ESSENTIAL" << RESET << " program to calculate if a point is in a triangle! ◬\n" << std::endl;
 		return EXIT_SUCCESS;
 	} catch (...) {
@@ -46,36 +44,17 @@ int main(void) {
 static void	setTriangleAndCheckPoint(void) {
 	while (forever) {
 		Point a = newPoint('a');
-		if (exitLoop(false)) {
-			erasePreviousLines(1);
-			return;
-		}
-
 		Point b = newPoint('b');
-		if (exitLoop(false)) {
-			erasePreviousLines(7);
-			return;
-		}
-
 		Point c = newPoint('c');
-		if (exitLoop(false)) {
-			erasePreviousLines(13);
-			return;
-		}
 
 		while (forever) {
 			Point p = newPoint('p');
-			if (exitLoop(false)) {
-				erasePreviousLines(19);
-				break;
-			}
+			std::cout << std::endl;
 			if (bsp(a, b, c, p))
-				std::cout << GREEN << "Point P is in the triangle!" << RESET << std::endl;
+				std::cout << GREEN << "Point P is in the triangle!\n" << RESET << std::endl;
 			else
-				std::cout << RED << "Point P is not in the triangle!" << RESET << std::endl;
-			sleep(3);
+				std::cout << RED << "Point P is not in the triangle!\n" << RESET << std::endl;
 			aBeautifulDay(a, b, c, p);
-			erasePreviousLines(6);
 		}
 	}
 }
@@ -120,47 +99,10 @@ static inline Point	newPoint(char position) {
 
 	std::cout << "Define the new point " << BLUE << position << RESET << ":" << std::endl;
 	for (index i = 0 ; i < 2 ; i++) {
-		std::cout << "What will be its value: " << YELLOW << (!i ? 'x' : 'y') << RESET << ':' << std::endl << std::endl;
+		std::cout << "What will be its value: " << YELLOW << (!i ? 'x' : 'y') << RESET << ':' << std::endl;
 		!i ? x = askFloat() : y = askFloat();
-		if (exitLoop(false)) {
-			!i ? erasePreviousLines(2) : erasePreviousLines(4);
-			exitLoop(true);
-			return Point(0, 0);
-		}
 	}
 	if (position != 'p')
 		std::cout << std::endl;
 	return Point(x, y);
-}
-
-/**
- * @brief Erase the previous `count` lines from the terminal.
- * 
- * This function uses the ANSI escape sequence defined in `ERASE_LINE` 
- * to clear the specified number of lines from the terminal output.
- * 
- * @param count The number of lines to erase.
- */
-static inline void	erasePreviousLines(const size_t &count) {
-	std::string	eraseInstructions = "";
-
-	for (size_t index = 0 ; index < count ; index++)
-		eraseInstructions += ERASE_LINE;
-
-	std::cout << eraseInstructions << std::flush << MOVE_CURSOR_UP << std::endl;
-}
-
-/**
- * @brief A function that saves the user's output key.
- * 
- * @param set If a new data, records, otherwise just checks.
- * @return true If the exit button has been a press.
- * @return false If nothing new.
- */
-bool	exitLoop(bool set) {
-	static bool	save = false;
-
-	if (set)
-		return save = true;
-	return (save ? save = false, true : false);
 }

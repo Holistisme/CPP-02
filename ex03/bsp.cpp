@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-02/ex03/bsp.cpp                         *
 *                    Creation Date: January 24, 2025 02:59 PM                    *
-*                    Last Updated: January 25, 2025 11:35 AM                     *
+*                    Last Updated: January 29, 2025 11:14 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -32,9 +32,8 @@ bool	bsp(Point const a, Point const b, Point const c, Point const point) {
 	float	vectorBCP = getCrossProduct(b, c, point);
 	float	vectorCAP = getCrossProduct(c, a, point);
 
-	return	(vectorABP > 0 and vectorBCP > 0 and vectorCAP > 0)
-			or
-			(vectorABP < 0 and vectorBCP < 0 and vectorCAP < 0);
+	return (vectorABP > 0 and vectorBCP > 0 and vectorCAP > 0)
+		or (vectorABP < 0 and vectorBCP < 0 and vectorCAP < 0);
 }
 
 /**
