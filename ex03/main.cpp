@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-02/ex03/main.cpp                        *
 *                    Creation Date: January 21, 2025 01:30 PM                    *
-*                    Last Updated: January 29, 2025 11:14 AM                     *
+*                    Last Updated: February 3, 2025 11:19 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -55,6 +55,8 @@ static void	setTriangleAndCheckPoint(void) {
 			else
 				std::cout << RED << "Point P is not in the triangle!\n" << RESET << std::endl;
 			aBeautifulDay(a, b, c, p);
+			confirmExit();
+			std::cout << std::endl;
 		}
 	}
 }

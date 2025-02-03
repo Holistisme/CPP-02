@@ -17,6 +17,7 @@ CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 SOURCE		= main.cpp		\
 			askFloat.cpp	\
 			bsp.cpp			\
+			confirmExit.cpp	\
 			Fixed.cpp		\
 			Point.cpp
 

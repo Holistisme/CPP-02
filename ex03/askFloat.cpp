@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                      File Name: /CPP-02/ex03/askFloat.cpp                      *
 *                    Creation Date: January 24, 2025 04:02 PM                    *
-*                    Last Updated: January 29, 2025 11:14 AM                     *
+*                    Last Updated: February 3, 2025 11:39 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -39,5 +39,6 @@ float askFloat() {
 		std::cout << std::endl;
 	} while (forever);
 
+	std::cin.ignore(1000, '\n');
 	return number;
 }
